@@ -1,0 +1,5 @@
+package ginchat
+
+func main() {
+
+}
