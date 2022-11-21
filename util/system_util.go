@@ -20,7 +20,7 @@ func ConfigInit() {
 	}
 }
 
-var db gorm.Dialector
+var Db *gorm.DB
 
 func MysqlInit() {
 	mysqlDns := Config.Get("mysql.dns").(string)
@@ -29,5 +29,6 @@ func MysqlInit() {
 		panic("failed to connect database")
 	}
 
-	fmt.Println("连接 mysql 成功", db)
+	Db = db
+	fmt.Println("连接 mysql 成功", Db)
 }

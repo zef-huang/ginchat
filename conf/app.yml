@@ -1,2 +1,2 @@
 mysql:
-  dns: "root:@tcp(127.0.0.1:3306)/ginchat"
+  dns: "root:@tcp(127.0.0.1:3306)/ginchat?charset=utf8&parseTime=true"

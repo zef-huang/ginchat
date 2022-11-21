@@ -1,4 +1,4 @@
-package main
+package test
 
 import (
 	"ginchat/model"
@@ -12,7 +12,7 @@ type Product struct {
 	Price uint
 }
 
-func main() {
+func GormTest() {
 	db, err := gorm.Open(mysql.Open("root:@tcp(127.0.0.1:3306)/ginchat"), &gorm.Config{})
 	if err != nil {
 		panic("failed to connect database")
