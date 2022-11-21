@@ -5,6 +5,9 @@ import (
 	"github.com/spf13/viper"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
+	"gorm.io/gorm/logger"
+	"log"
+	"os"
 )
 
 var Config = viper.New()
@@ -24,7 +27,16 @@ var Db *gorm.DB
 
 func MysqlInit() {
 	mysqlDns := Config.Get("mysql.dns").(string)
-	db, err := gorm.Open(mysql.Open(mysqlDns), &gorm.Config{})
+
+	mysqlLogger := logger.New(
+		log.New(os.Stdout, "\r\n", log.LstdFlags),
+		logger.Config{
+			LogLevel: logger.Info,
+			Colorful: true,
+		},
+	)
+
+	db, err := gorm.Open(mysql.Open(mysqlDns), &gorm.Config{Logger: mysqlLogger})
 	if err != nil {
 		panic("failed to connect database")
 	}
