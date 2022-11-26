@@ -3,6 +3,7 @@ package service
 import (
 	"fmt"
 	"ginchat/model"
+	"github.com/asaskevich/govalidator"
 	"github.com/gin-gonic/gin"
 	"net/http"
 	"strconv"
@@ -28,7 +29,7 @@ func UserService(c *gin.Context) {
 type CreateUserParams struct {
 	Username string `json:"Username" binding:"required"`
 	Password string `json:"Password" binding:"required"`
-	Phone    string `json:"Phone" binding:"required"`
+	Phone    string `json:"Phone" binding:"required" valid:"^1[1-9]{1}\d{9}$"`
 }
 
 func CreateUser(c *gin.Context) {
@@ -78,6 +79,12 @@ func UpdateUser(c *gin.Context) {
 
 	params := CreateUserParams{}
 	c.ShouldBindJSON(&params)
+	result, err := govalidator.ValidateStruct(params)
+	if result == false {
+		c.JSON(http.StatusOK, gin.H{
+			"message": err,
+		})
+	}
 
 	fmt.Println("params", params)
 
