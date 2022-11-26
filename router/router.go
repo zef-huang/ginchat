@@ -10,5 +10,6 @@ func Route() *gin.Engine {
 	r.GET("/ping", service.IndexService)
 
 	r.GET("/userList", service.UserService)
+	r.POST("/createUser", service.CreateUser)
 	return r
 }

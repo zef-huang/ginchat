@@ -8,10 +8,10 @@ import (
 
 type UserBasic struct {
 	gorm.Model
-	UserName string
-	PassWord string
-	Email    string
-	Phone    string
+	UserName string `json:"UserName" binding:"required" `
+	PassWord string `json:"PassWord" binding:"required"`
+	Email    string `json:"Email" binding:"required"`
+	Phone    string `json:"Phone" binding:"required"`
 }
 
 func (table *UserBasic) tableName() string {
@@ -24,4 +24,10 @@ func GetUserPageData(page int, pageSize int) []*UserBasic {
 	fmt.Println(users)
 
 	return users
+}
+
+func CreateUser(user UserBasic) {
+	fmt.Println(user)
+
+	util.Db.Table("user_basics").Create(&user)
 }

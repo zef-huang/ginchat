@@ -20,6 +20,8 @@ func GormTest() {
 
 	user := &model.UserBasic{
 		UserName: "hzf",
+		PassWord: "123456",
+		Phone:    "18845612345",
 	}
 
 	// Migrate the schema
