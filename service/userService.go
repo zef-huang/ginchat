@@ -72,3 +72,23 @@ func DeleteUser(c *gin.Context) {
 		"message": "ok",
 	})
 }
+
+func UpdateUser(c *gin.Context) {
+	fmt.Println("enter")
+
+	params := CreateUserParams{}
+	c.ShouldBindJSON(&params)
+
+	fmt.Println("params", params)
+
+	user := model.UserBasic{}
+
+	user.UserName = params.Username
+	user.PassWord = params.Password
+	user.Phone = params.Phone
+
+	model.UpdateUser(user)
+	c.JSON(http.StatusOK, gin.H{
+		"message": "ok",
+	})
+}

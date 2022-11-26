@@ -37,3 +37,11 @@ func DeleteUser(user UserBasic) {
 
 	util.Db.Table("user_basics").Delete(&user)
 }
+
+func UpdateUser(user UserBasic) {
+	fmt.Println("UpdateUser", user)
+
+	cond := UserBasic{UserName: user.UserName}
+
+	util.Db.Table("user_basics").Where(&cond).Updates(&user)
+}
