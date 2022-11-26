@@ -31,3 +31,9 @@ func CreateUser(user UserBasic) {
 
 	util.Db.Table("user_basics").Create(&user)
 }
+
+func DeleteUser(user UserBasic) {
+	fmt.Println(user)
+
+	util.Db.Table("user_basics").Delete(&user)
+}

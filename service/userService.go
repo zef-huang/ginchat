@@ -50,3 +50,25 @@ func CreateUser(c *gin.Context) {
 		"message": "ok",
 	})
 }
+
+type DeleteUserParams struct {
+	Username string `json:"Username" binding:"required"`
+}
+
+func DeleteUser(c *gin.Context) {
+	fmt.Println("enter")
+
+	params := DeleteUserParams{}
+	c.ShouldBindJSON(&params)
+
+	fmt.Println("params", params)
+
+	user := model.UserBasic{}
+
+	user.UserName = params.Username
+
+	model.DeleteUser(user)
+	c.JSON(http.StatusOK, gin.H{
+		"message": "ok",
+	})
+}

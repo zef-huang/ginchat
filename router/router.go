@@ -11,5 +11,6 @@ func Route() *gin.Engine {
 
 	r.GET("/userList", service.UserService)
 	r.POST("/createUser", service.CreateUser)
+	r.POST("/deleteUser", service.DeleteUser)
 	return r
 }
