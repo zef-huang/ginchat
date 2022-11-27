@@ -13,5 +13,7 @@ func Route() *gin.Engine {
 	r.POST("/createUser", service.CreateUser)
 	r.POST("/deleteUser", service.DeleteUser)
 	r.POST("/updateUser", service.UpdateUser)
+	r.POST("/getUser", service.GetUserInfo)
+
 	return r
 }

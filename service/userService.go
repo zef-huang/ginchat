@@ -107,3 +107,34 @@ func UpdateUser(c *gin.Context) {
 		"message": "ok",
 	})
 }
+
+type UserLoginParams struct {
+	Username string `json:"Username" binding:"required"`
+	Password string `json:"Password" binding:"required"`
+}
+
+func GetUserInfo(c *gin.Context) {
+	fmt.Println("enter")
+
+	params := UserLoginParams{}
+	c.ShouldBindJSON(&params)
+
+	fmt.Println("params", params)
+
+	user := model.UserBasic{}
+
+	user.UserName = params.Username
+	user.PassWord = util.Md5Password(params.Password)
+
+	findUser := model.FindUserByName(user.UserName)
+
+	if findUser.UserName == user.UserName && findUser.PassWord == user.PassWord {
+		c.JSON(http.StatusOK, gin.H{
+			"message": findUser,
+		})
+	} else {
+		c.JSON(http.StatusOK, gin.H{
+			"message": "用户名密码错误",
+		})
+	}
+}
