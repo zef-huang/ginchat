@@ -8,6 +8,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"net/http"
 	"strconv"
+	"time"
 )
 
 // @Tags 用户数据
@@ -129,9 +130,17 @@ func GetUserInfo(c *gin.Context) {
 	findUser := model.FindUserByName(user.UserName)
 
 	if findUser.UserName == user.UserName && findUser.PassWord == user.PassWord {
+		token := util.SignJwt(user.UserName)
+		user.Identity = token
+		model.UpdateUser(user)
 		c.JSON(http.StatusOK, gin.H{
-			"message": findUser,
+			"message": "获取 token 成功",
+			"token":   token,
 		})
+
+		fmt.Println("result", util.ParseJwt(token))
+		time.Sleep(2 * time.Second)
+		fmt.Println("result", util.ParseJwt(token))
 	} else {
 		c.JSON(http.StatusOK, gin.H{
 			"message": "用户名密码错误",

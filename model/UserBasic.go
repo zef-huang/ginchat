@@ -12,6 +12,7 @@ type UserBasic struct {
 	PassWord string `json:"PassWord" binding:"required"`
 	Email    string `json:"Email" binding:"required"`
 	Phone    string `json:"Phone" binding:"required"`
+	Identity string `json:"Identity"`
 }
 
 func (table *UserBasic) tableName() string {
