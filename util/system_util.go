@@ -1,7 +1,9 @@
 package util
 
 import (
+	"context"
 	"fmt"
+	"github.com/go-redis/redis/v8"
 	"github.com/spf13/viper"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
@@ -43,4 +45,29 @@ func MysqlInit() {
 
 	Db = db
 	fmt.Println("连接 mysql 成功", Db)
+}
+
+var ctx = context.Background()
+var redisDb *redis.Client
+
+func RedisInit() {
+	rdb := redis.NewClient(&redis.Options{
+		Addr:     "localhost:6379",
+		Password: "", // no password set
+		DB:       0,  // use default DB
+	})
+
+	val2, err := rdb.Get(ctx, "key2").Result()
+	if err == redis.Nil {
+		fmt.Println("key2 does not exist")
+	} else if err != nil {
+		panic(err)
+	} else {
+		fmt.Println("key2", val2)
+	}
+	// Output: key value
+	// key2 does not exist
+
+	redisDb = rdb
+	fmt.Println("连接 redis 成功", redisDb)
 }
