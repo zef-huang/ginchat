@@ -3,6 +3,7 @@ package service
 import (
 	"fmt"
 	"ginchat/model"
+	"ginchat/util"
 	"github.com/asaskevich/govalidator"
 	"github.com/gin-gonic/gin"
 	"net/http"
@@ -43,7 +44,7 @@ func CreateUser(c *gin.Context) {
 	user := model.UserBasic{}
 
 	user.UserName = params.Username
-	user.PassWord = params.Password
+	user.PassWord = util.Md5Password(params.Password)
 	user.Phone = params.Phone
 
 	resultUser := model.FindUserByName(user.UserName)
