@@ -45,3 +45,14 @@ func UpdateUser(user UserBasic) {
 
 	util.Db.Table("user_basics").Where(&cond).Updates(&user)
 }
+
+func FindUserByName(username string) UserBasic {
+	fmt.Println("username", username)
+
+	cond := UserBasic{UserName: username}
+
+	user := UserBasic{}
+	util.Db.Table("user_basics").Where(&cond).Find(&user)
+
+	return user
+}

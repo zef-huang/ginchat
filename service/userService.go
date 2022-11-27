@@ -46,6 +46,13 @@ func CreateUser(c *gin.Context) {
 	user.PassWord = params.Password
 	user.Phone = params.Phone
 
+	resultUser := model.FindUserByName(user.UserName)
+	if resultUser.UserName == user.UserName {
+		c.JSON(http.StatusOK, gin.H{
+			"message": "用户名已存在",
+		})
+	}
+
 	model.CreateUser(user)
 	c.JSON(http.StatusOK, gin.H{
 		"message": "ok",
