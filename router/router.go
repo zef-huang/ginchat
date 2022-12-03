@@ -15,5 +15,7 @@ func Route() *gin.Engine {
 	r.POST("/updateUser", service.UpdateUser)
 	r.POST("/getUser", service.GetUserInfo)
 
+	r.GET("/ws/test", service.WebsocketService)
+
 	return r
 }
